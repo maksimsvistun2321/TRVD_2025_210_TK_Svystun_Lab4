@@ -1,0 +1,25 @@
+{{> header }}
+
+<h1>Список користувачів</h1>
+<ul>
+  {{#users}}
+    <li>
+      {{name}} ({{email}}, {{age}} років)
+      |
+      <a href="/users/edit/{{_id}}">Редагувати</a>
+      <form class = "delete" action="/users/delete/{{_id}}" method="POST" style="display:inline;">
+        <button type="submit" onclick="return confirm('Видалити користувача?')">Видалити</button>
+      </form>
+    </li>
+  {{/users}}
+</ul>
+
+<h2>Додати користувача</h2>
+<form action="/users" method="POST">
+  <input type="text" name="name" placeholder="Ім'я" required>
+  <input type="email" name="email" placeholder="Email" required>
+  <input type="number" name="age" placeholder="Вік" required>
+  <button type="submit">Додати</button>
+</form>
+
+{{> footer }}

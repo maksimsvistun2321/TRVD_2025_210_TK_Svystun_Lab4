@@ -1,0 +1,32 @@
+{{> header}}
+<h1>Редагувати колекцію</h1>
+
+<form action="/collections/{{collection._id}}/edit" method="POST" enctype="multipart/form-data">
+  <label>Назва:</label><br>
+  <input type="text" name="name" value="{{collection.name}}" required><br><br>
+
+  <label>Опис:</label><br>
+  <textarea name="description" rows="3">{{collection.description}}</textarea><br><br>
+
+  <label>Поточна обкладинка:</label><br>
+  {{#collection.coverImage}}<img src="/uploads/{{collection.coverImage}}" width="100"><br>{{/collection.coverImage}}
+  <input type="file" name="coverImage"><br><br>
+
+  <fieldset>
+    <legend>Книги в колекції</legend>
+    {{#books}}
+      <label>
+        <input 
+          type="checkbox" 
+          name="books[]" 
+          value="{{_id}}" 
+          {{#selected}}checked{{/selected}}
+        >
+        {{title}}
+      </label><br>
+    {{/books}}
+  </fieldset><br>
+
+  <button type="submit">Зберегти</button>
+</form>
+{{> footer}}

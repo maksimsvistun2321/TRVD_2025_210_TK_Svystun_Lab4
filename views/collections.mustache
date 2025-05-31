@@ -1,0 +1,51 @@
+{{> header}}
+<h1>Колекції книг</h1>
+
+<ul>
+  {{#collections}}
+  <li>
+    <strong>{{name}}</strong> — {{description}}<br>
+    {{#coverImage}}<img src="/uploads/{{coverImage}}" alt="Обкладинка" width="100"><br>{{/coverImage}}
+
+    {{#books.length}}
+      <strong>Книги в колекції:</strong>
+      <ul>
+        {{#books}}
+          <li>{{title}}</li>
+        {{/books}}
+      </ul>
+    {{/books.length}}
+
+    <a href="/collections/{{_id}}/edit">Редагувати</a>
+    <form class="delete" action="/collections/{{_id}}/delete" method="POST" style="display:inline">
+      <button type="submit">Видалити</button>
+    </form>
+  </li>
+  {{/collections}}
+</ul>
+
+<hr>
+
+<h2>Нова колекція</h2>
+<form action="/collections" method="POST" enctype="multipart/form-data">
+  <label>Назва:</label><br>
+  <input type="text" name="name" placeholder="Назва" required><br><br>
+
+  <label>Опис:</label><br>
+  <textarea name="description" placeholder="Опис" rows="3"></textarea><br><br>
+
+  <label>Додати книги:</label><br>
+  <fieldset>
+    {{#books}}
+      <label>
+        <input type="checkbox" name="books[]" value="{{_id}}"> {{title}}
+      </label><br>
+    {{/books}}
+  </fieldset><br>
+
+  <label>Обкладинка:</label><br>
+  <input type="file" name="coverImage"><br><br>
+
+  <button type="submit">Додати</button>
+</form>
+{{> footer}}

@@ -1,0 +1,27 @@
+{{> header}}
+<h1>Список авторів</h1>
+<ul>
+  {{#authors}}
+  <li>
+    <strong>{{name}}</strong><br>
+    {{bio}}<br>
+    {{#photo}}
+      <img src="{{photo}}" alt="Фото автора" style="height: 100px;"><br>
+    {{/photo}}
+    <a href="/authors/{{_id}}/edit">Редагувати</a>
+    <form class = "delete" action="/authors/{{_id}}/delete" method="POST" style="display:inline;">
+      <button type="submit">Видалити</button>
+    </form>
+  </li>
+  <hr>
+  {{/authors}}
+</ul>
+
+<h2>Додати автора</h2>
+<form action="/authors" method="POST" enctype="multipart/form-data">
+  <input type="text" name="name" placeholder="Ім'я" required><br>
+  <textarea name="bio" placeholder="Біографія" required></textarea><br>
+  <input type="file" name="photo" accept="image/*"><br>
+  <button type="submit">Додати</button>
+</form>
+{{> footer}}

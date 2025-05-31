@@ -1,0 +1,31 @@
+{{> header }}
+
+<h1>Список книг</h1>
+<ul>
+  {{#books}}
+    <li>
+      <strong>{{title}}</strong> — {{description}}
+      <br><strong>Автор:</strong> {{author}}
+      {{#coverImage}}
+        <br><img src="{{coverImage}}" alt="Обкладинка" style="height: 100px;">
+      {{/coverImage}}
+      <br>
+      <a href="/books/edit/{{_id}}">Редагувати</a>
+      <form class = "delete" action="/books/delete/{{_id}}" method="POST" style="display:inline;">
+        <button type="submit" onclick="return confirm('Видалити книгу?')">Видалити</button>
+      </form>
+    </li>
+    <hr>
+  {{/books}}
+</ul>
+
+<h2>Додати нову книгу</h2>
+<form action="/books" method="POST" enctype="multipart/form-data">
+  <input type="text" name="title" placeholder="Назва" required><br>
+  <textarea name="description" placeholder="Опис" required></textarea><br>
+  <input type="file" name="coverImage" accept="image/*"><br>
+  <input type="text" name="author" placeholder="Автор"><br>
+  <button type="submit">Додати</button>
+</form>
+
+{{> footer }}

@@ -1,0 +1,14 @@
+{{> header}}
+<h1>Редагувати автора</h1>
+<form action="/authors/{{author._id}}/edit" method="POST" enctype="multipart/form-data">
+  <input type="text" name="name" value="{{author.name}}" required><br>
+  <textarea name="bio" required>{{author.bio}}</textarea><br>
+  <label>Поточне фото:</label><br>
+  {{#author.photo}}
+    <img src="{{author.photo}}" alt="Фото" style="height: 100px;"><br>
+  {{/author.photo}}
+  <label>Нове фото (не обов'язково):</label><br>
+  <input type="file" name="photo" accept="image/*"><br>
+  <button type="submit">Зберегти</button>
+</form>
+{{> footer}}
