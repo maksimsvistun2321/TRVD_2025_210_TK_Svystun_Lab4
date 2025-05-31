@@ -3,9 +3,12 @@ const mustacheExpress = require('mustache-express');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 const app = express();
 const port = 3000;
+
+app.use(bodyParser.json());
 
 // Налаштування шаблонізатора Mustache
 app.engine('mustache', mustacheExpress());
@@ -30,6 +33,16 @@ app.use('/uploads', express.static('public/uploads'));
 
 app.get('/', (req, res) => res.render('index', { title: 'Головна' }));
 app.get('/about', (req, res) => res.render('about'));
+
+// Підключення REST API
+const bookApiRoutes = require('./routes/api/books');
+app.use('/api/books', bookApiRoutes);
+const authorApiRoutes = require('./routes/api/authors');
+app.use('/api/authors', authorApiRoutes);
+const collectionApiRoutes = require('./routes/api/collections');
+app.use('/api/collections', collectionApiRoutes);
+const userApiRoutes = require('./routes/api/users');
+app.use('/api/users', userApiRoutes);
 
 // Маршрути
 app.use('/users', require('./routes/userRoutes'));
